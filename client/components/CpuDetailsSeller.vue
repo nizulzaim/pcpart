@@ -1,7 +1,7 @@
 <template> 
     <div>
         <clearfix>
-            <div class="pull-right" v-if="$subReady && $subReady.loginUser && loginUser.isCustomer()">
+            <div class="pull-right" v-if="loginUser && loginUser.isCustomer()">
                 <raised-button @click="showAdd= true" class="primary" v-ripple><icon name="plus"></icon> Add New</raised-button>
             </div>
         </clearfix>

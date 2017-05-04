@@ -15,7 +15,7 @@
             <tbody>
                 <tr v-for="v in value" style="cursor: pointer">
                     <td></td>
-                    <td @click="goTo(v._id)">{{v.manufacturer().name}} {{v.name}}</td>
+                    <td @click="goTo(v._id)" v-if="v.manufacturer()">{{v.manufacturer().name}} {{v.name}}</td>
                     <td @click="goTo(v._id)">{{v.operatingFrequency}} GHz</td>
                     <td @click="goTo(v._id)">{{v.cores}}</td>
                     <td @click="goTo(v._id)">{{v.thermalDesignPower}} W</td>
