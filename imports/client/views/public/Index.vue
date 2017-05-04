@@ -1,182 +1,116 @@
 <template>
-    <div class="wrap" v-wheight>
-		<div class="comp">
-			<div class="monitor">
-				<div class="mid">
-					<div class="site">
-						<div class="topbar">
-							<div class="cerrar">
-								<div class="circl"></div>
-								<div class="circl"></div>
-								<div class="circl"></div>
-							</div>
+    <div class="appbar-padding">
+		<div style="z-index:100" class="background-blue-grey-700" v-depth="1">
+			<page-container>
+				<div class="row has-gutter middle-xs" style="padding-top: 36px; padding-bottom: 36px;">
+					<div class="col-lg-fluid-8">
+						<div class="font-headline color-white">Build Guides</div>
+						<div class="font-subhead color-white">
+							Building your own PC and need ideas on where to get started? Explore our build guides, which cover systems for all use-cases and budgets, or create your own and share it with our community.
 						</div>
-						<div class="inhead">
-							<div class="mid">
-								<div class="item"></div>
-							</div>
-							<div class="mid txr">
-								<div class="item"></div>
-								<div class="item"></div>
-								<div class="item"></div>
-								<div class="item"></div>
-							</div>
+						<div>
+							<raised-button v-ripple>Build Guides</raised-button>
 						</div>
-						<div class="inslid">
-							
-						</div>
-						<div class="incont">
-							<div class="item"></div>
-							<div class="item"></div>
-							<div class="item"></div>
-							<div class="item"></div>
-							<div class="wid">
-								<div class="itwid">
-									<div>
-										<div class="contfoot"></div>
-									</div>
-								</div>
-								<div class="itwid">
-									<div>
-										<div class="contfoot"></div>
-									</div>
-								</div>
-								<div class="itwid">
-									<div>
-										<div class="contfoot"></div>
-									</div>
-								</div>
-								<div class="clearfix"></div>
+					</div>
+
+					<div class="col-lg-fluid-8">
+						<router-link to="/guides/1">
+							<cards class="cards-hover color-grey-900">
+								<cards-content>
+									<div class="font-body2 font-medium">Featured Guide</div>
+									<div class="font-headline">Enthusiast AMD Ryzen Gaming Build</div>
+								</cards-content>
+								<cards-content class="profile">
+									<avatar text="Rafael Romeli"></avatar>
+									<div class="profile-title">Rafael Romeli</div>
+									<div class="profile-subhead">Sometext Here</div>
+								</cards-content>
+								<cards-content>
+									<div class="font-subhead font-light no-margin">Sometext Here</div>
+									<div class="font-subhead font-light no-margin">Sometext Here</div>
+									<div class="font-subhead font-light">Sometext Here</div>
+									<div class="font-title">MYR 4,500.00</div>
+								</cards-content>
+							</cards>
+						</router-link>
+					</div>
+				</div>
+			</page-container>
+			
+		</div>
+		<div class="background-white">
+			<page-container>
+				<div class="row has-gutter center-xs middle-xs">
+					<div class="col-lg-fluid-16">
+						<div class="row">
+							<div class="col-xs-fluid-6">
+								<router-link to="/product/cpu">
+									<cards v-ripple>
+										<div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;background: #000; opacity: 0.2"></div>
+										<img src="/img/nav-cpu.png" alt="">
+									</cards>
+								</router-link>
 							</div>
-							<div class="infoot">
-								
+							<div class="col-xs-fluid-6">
+								<router-link to="/hello">
+									<cards v-ripple>
+										<div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;background: #000; opacity: 0.2"></div>
+										<img src="/img/nav-cpucooler.png" alt="">
+									</cards>
+								</router-link>
+							</div>
+							<div class="col-xs-fluid-6">
+								<router-link to="/hello">
+									<cards v-ripple>
+										<div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;background: #000; opacity: 0.2"></div>
+										<img src="/img/nav-motherboard.png" alt="">
+									</cards>
+								</router-link>
+							</div>
+							<div class="col-xs-fluid-6">
+								<router-link to="/hello">
+									<cards v-ripple>
+										<div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;background: #000; opacity: 0.2"></div>
+										<img src="/img/nav-memory.png" alt="">
+									</cards>
+								</router-link>
+							</div>
+							<div class="col-xs-fluid-6">
+								<router-link to="/hello">
+									<cards v-ripple>
+										<div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;background: #000; opacity: 0.2"></div>
+										<img src="/img/nav-ssd.png" alt="">
+									</cards>
+								</router-link>
+							</div>
+							<div class="col-xs-fluid-6">
+								<router-link to="/hello">
+									<cards v-ripple>
+										<div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;background: #000; opacity: 0.2"></div>
+										<img src="/img/nav-videocard.png" alt="">
+									</cards>
+								</router-link>
+							</div>
+							<div class="col-xs-fluid-6">
+								<router-link to="/hello">
+									<cards v-ripple>
+										<div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;background: #000; opacity: 0.2"></div>
+										<img src="/img/nav-powersupply.png" alt="">
+									</cards>
+								</router-link>
+							</div>
+							<div class="col-xs-fluid-6">
+								<router-link to="/hello">
+									<cards v-ripple>
+										<div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;background: #000; opacity: 0.2"></div>
+										<img src="/img/nav-case.png" alt="">
+									</cards>
+								</router-link>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="mid codigo">
-					<div class="line">
-						<div class="item var"></div>
-						<div class="item cont"></div>
-						<div class="clearfix"></div>
-					</div>
-					<div class="line">
-						<div class="item min var"></div>
-						<div class="item min fun"></div>
-						<div class="clearfix"></div>
-					</div>
-					<div class="line">
-						<div class="item min var"></div>
-						<div class="clearfix"></div>
-					</div>
-					<div class="line">
-						<div class="item var"></div>
-						<div class="item atr"></div>
-						<div class="item cont"></div>
-						<div class="clearfix"></div>
-					</div>
-					<div class="line tab1">
-						<div class="item min atr"></div>
-						<div class="item lrg fun"></div>
-						<div class="item min fun"></div>
-						<div class="item lrg cont"></div>
-						<div class="clearfix"></div>
-					</div>
-					<div class="line tab1">
-						<div class="item lrg atr"></div>
-						<div class="item min fun"></div>
-						<div class="item min cont"></div>
-						<div class="clearfix"></div>
-					</div>
-					<div class="line tab1">
-						<div class="item atr"></div>
-						<div class="item min fun"></div>
-						<div class="item atr"></div>
-						<div class="clearfix"></div>
-					</div>
-					<div class="line tab1">
-						<div class="item min atr"></div>
-						<div class="item min cont"></div>
-						<div class="item lrg atr"></div>
-						<div class="item  fun"></div>
-						<div class="clearfix"></div>
-					</div>
-					<div class="line tab1">
-						<div class="item min atr"></div>
-						<div class="item lrg fun"></div>
-						<div class="item lrg cont"></div>
-						<div class="item min fun"></div>
-						<div class="clearfix"></div>
-					</div>
-					<div class="line tab1">
-						<div class="item min var"></div>
-						<div class="clearfix"></div>
-					</div>
-					<div class="line tab1">
-						<div class="item min var"></div>
-						<div class="clearfix"></div>
-					</div>
-					<div class="line tab2">
-						<div class="item min var"></div>
-						<div class="clearfix"></div>
-					</div>
-					<div class="line tab2">
-						<div class="item min atr"></div>
-						<div class="item min fun"></div>
-						<div class="clearfix"></div>
-					</div>
-					<div class="line tab3">
-						<div class="item min atr"></div>
-						<div class="item min fun"></div>
-						<div class="item lrg fun"></div>
-						<div class="item lrg cont"></div>
-						<div class="clearfix"></div>
-					</div>
-					<div class="line tab3">
-						<div class="item min atr"></div>
-						<div class="item min fun"></div>
-						<div class="item lrg atr"></div>
-						<div class="item lrg cont"></div>
-						<div class="clearfix"></div>
-					</div>
-					<div class="line tab4">
-						<div class="item min fun"></div>
-						<div class="item lrg atr"></div>
-						<div class="clearfix"></div>
-					</div>
-					<div class="line tab1">
-						<div class="item atr"></div>
-						<div class="item var"></div>
-						<div class="item cont"></div>
-						<div class="clearfix"></div>
-					</div>
-					<div class="line tab3">
-						<div class="item min var"></div>
-						<div class="clearfix"></div>
-					</div>
-					<div class="line tab4">
-						<div class="item min atr"></div>
-						<div class="item min fun"></div>
-						<div class="item lrg atr"></div>
-						<div class="item lrg cont"></div>
-						<div class="clearfix"></div>
-					</div>
-					<div class="line">
-						<div class="item min var"></div>
-						<div class="clearfix"></div>
-					</div>
-					
-				</div>
-			</div>
-			<div class="base">
-				
-			</div>
-            <clearfix class="font-display1 font-thin color-white" style="margin-top: 20px;">Welcome To</clearfix>
-            <clearfix class="font-display1 font-light color-white">Viu UI</clearfix>
-            <clearfix style="width:auto" class="button-center-container">
-				<a href="https://doc.devsign.my" target="_blank"  rel="noopener"><raised-button v-ripple class="primary background-pink"><icon name="xml"></icon> Start Explore</raised-button></a>
-            	<a href="https://github.com/DevsignStudio/viu" target="_blank"  rel="nofollow"><raised-button v-ripple><icon name="github-circle"></icon> Github</raised-button></a>
-            </clearfix>
+			</page-container>
 		</div>
 	</div>
 </template>

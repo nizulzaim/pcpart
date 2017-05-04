@@ -1,14 +1,34 @@
-import {IndexNavigation, Toolbar} from "/imports/client/template";
+import {IndexNavigation, IndexToolbar} from "/imports/client/template";
 import IndexPage from '/imports/client/views/public/Index.vue';
+import Product from '/imports/client/views/public/Product.vue';
+import ProductDetails from '/imports/client/views/public/ProductDetails.vue';
 
 let routesParent = "";
 export default [{
     path: `${routesParent}/`,
     name: "Index",
-    meta: { fixToolbar: true, pageTitle: "Viu Doc" },
+    meta: { fixToolbar: true, pageTitle: "PC Part" },
     components: {
         default: IndexPage,
-        toolbar: Toolbar,
+        toolbar: IndexToolbar,
         navigation: IndexNavigation,
     }
-}, ];
+}, {
+    path: `${routesParent}/product/:type`,
+    name: "Index",
+    meta: { fixToolbar: true,depth: 1, pageTitle: "Choose a CPU" },
+    components: {
+        default: Product,
+        toolbar: IndexToolbar,
+        navigation: IndexNavigation,
+    }
+}, {
+    path: `${routesParent}/product/details/:id`,
+    name: "ProductDetails",
+    meta: { fixToolbar: true,depth: 1, pageTitle: "Product Details" },
+    components: {
+        default: ProductDetails,
+        toolbar: IndexToolbar,
+        navigation: IndexNavigation,
+    }
+},];
