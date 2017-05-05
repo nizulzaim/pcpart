@@ -11,7 +11,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-7">
+            <div class="col-md-7 background-grey-200">
                 <div style="padding: 40px;">
                     <cards>
                         <cards-image :img="product.getImageLink()" style="padding-bottom: 100%"></cards-image>
@@ -19,7 +19,7 @@
                     <cpu-details v-if="product.type === 'Cpu'" v-model="product"></cpu-details>
                 </div>
             </div>
-            <div class="col-md background-white" v-depth="1">
+            <div class="col-md background-grey-100" v-depth="1">
                 <div style="padding: 40px;">
                     <cpu-details-seller v-if="product.type === 'Cpu'" v-model="product"></cpu-details-seller>
                 </div>

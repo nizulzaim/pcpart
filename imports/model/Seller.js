@@ -6,6 +6,7 @@ import {
 } from "meteor/meteor";
 
 
+
 export const Seller = Class.create({
     name: "Seller",
     collection: new Mongo.Collection("sellers"),
@@ -43,6 +44,11 @@ export const Seller = Class.create({
 });
 
 if (Meteor.isServer) {
+    const possibleHostName = [
+        "amazon.com",
+        "lazada.com.my",
+    ];
+
     Seller.extend({
         meteorMethods: {
             create(obj) {
@@ -50,6 +56,21 @@ if (Meteor.isServer) {
                     merge: true,
                     cast: true,
                 });
+                let extractHostname = function (url) {
+                    var hostname;
+                    if (url.indexOf("://") > -1) {
+                        hostname = url.split('/')[2];
+                    }
+                    else {
+                        hostname = url.split('/')[0];
+                    }
+                    hostname = hostname.split(':')[0];
+                    return hostname;
+                };
+
+
+                console.log(extractHostname(obj.link));
+
                 this.userId = Meteor.userId();
                 return this.save();
             },

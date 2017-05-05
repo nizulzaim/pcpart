@@ -1,5 +1,5 @@
 <template>
-    <data-table class="sortable" style="box-shadow: none">
+    <data-table class="sortable">
         <table>
             <thead>
                 <tr>

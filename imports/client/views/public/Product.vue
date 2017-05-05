@@ -1,10 +1,10 @@
 <template>
     <div class="appbar-padding" style="overflow-x: hidden;">
         <div class="row" style="height: 3000px">
-            <div class="col-md-6">
+            <div class="col-md-6  background-grey-200">
 
             </div>
-            <div class="col-md background-white" v-depth="1">
+            <div class="col-md background-grey-100" v-depth="1">
                 <div style="padding: 20px;">
                     <div class="row has-gutter">
                         <div class="col-xs-fluid-24">

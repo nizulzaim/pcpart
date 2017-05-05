@@ -6,23 +6,21 @@
             </div>
         </clearfix>
 
-        <data-table class="sortable" style="box-shadow: none">
+        <data-table class="sortable">
             <table>
                 <thead>
                     <tr>
-                        <th class="unsortable"></th>
                         <th>Website</th>
                         <th>Price</th>
-                        <th></th>
+                        <th class="th-action unsortable"></th>
                         <!--<th class="th-action unsortable"></th>-->
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="v in sellers">
-                        <td></td>
-                        <td>{{v.websiteName()}}</td>
+                        <td><img style="height:36px; margin: 0;" :src="'/img/company/company-'+ v.websiteType+ '.png'" alt=""></td>
                         <td>RM {{v.price.toFixed(2)}}</td>
-                        <td class="td-number">
+                        <td class="td-action">
                             <div class="pull-right">
                                 <a :href="v.link" target="_blank">
                                     <icon-button name="link"></icon-button>
