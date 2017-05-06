@@ -70,7 +70,7 @@
                 })
                 this.showButtonCompare = itemCount > 1;
 
-                if (this.itemToCompare.length === 2) {
+                if (this.itemToCompare.length === 3) {
                     this.value.forEach((item, index) => {
                         item.checkboxDisabled = !this.checkbox[index];
                     })
@@ -86,8 +86,7 @@
                 this.$router.push("/product/details/" + id);
             },
             goToCompare() {
-                Session.set("compare", this.itemToCompare);
-                this.$router.push("/product/compare");
+                this.$router.push("/product/compare?type=cpu&compare="+ this.itemToCompare);
             }
             
         },

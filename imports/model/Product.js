@@ -88,6 +88,18 @@ if (Meteor.isServer) {
             }
         }
     });
+    let children = [
+        {
+            find: function(p) {
+                return Manufacturer.find(p.manufacturerId);
+            }
+        },
+        {
+            find: function(p) {
+                return Images.find(p.imageId).cursor;
+            }
+        }
+    ];
 
     Meteor.publishComposite('products', function(type ="", id="") {
         return {
@@ -100,18 +112,16 @@ if (Meteor.isServer) {
                 }
                 return Product.find();
             },
-            children: [
-                {
-                    find: function(p) {
-                        return Manufacturer.find(p.manufacturerId);
-                    }
-                },
-                {
-                    find: function(p) {
-                        return Images.find(p.imageId).cursor;
-                    }
-                }
-            ]
+            children,
+        };
+    });
+
+    Meteor.publishComposite('productsByArrayOfID', function(arrayId) {
+        return {
+            find: function() {
+                return Product.find({_id: {$in: arrayId}});
+            },
+            children,
         };
     });
 }
