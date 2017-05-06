@@ -18,7 +18,7 @@
                 </thead>
                 <tbody>
                     <tr v-for="v in sellers">
-                        <td><img style="height:36px; margin: 0;" :src="'/img/company/company-'+ v.websiteType+ '.png'" alt=""></td>
+                        <td><img style="height:30px; margin: 0;" :src="'/img/company/company-'+ v.websiteType+ '.png'" alt=""></td>
                         <td>RM {{v.price.toFixed(2)}}</td>
                         <td class="td-action">
                             <div class="pull-right">
