@@ -1,47 +1,44 @@
 <template>
-    <data-table class="sortable">
-        <table>
-            <thead>
-                <tr>
-                    <th class="unsortable"></th>
-                    <th class="">CPU</th>
-                    <th>Speed</th>
-                    <th>Cores</th>
-                    <th>TDP (W)</th>
-                    <th>Price</th>
-                    <!--<th class="th-action unsortable"></th>-->
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="v in value" style="cursor: pointer">
-                    <td></td>
-                    <td @click="goTo(v._id)" v-if="v.manufacturer()">{{v.manufacturer().name}} {{v.name}}</td>
-                    <td @click="goTo(v._id)">{{v.operatingFrequency}} GHz</td>
-                    <td @click="goTo(v._id)">{{v.cores}}</td>
-                    <td @click="goTo(v._id)">{{v.thermalDesignPower}} W</td>
-                    <td @click="goTo(v._id)"></td>
-                    <!--<td v-text="getLocation(trip.departLocation).name"></td>
-                    <td v-text="getLocation(trip.price[trip.price.length - 1].arrivalLocation).name"></td>
-                    <td>{{trip.createdAt | moment("Do MMMM YYYY, HH:mm")}}</td>
-                    <td class="td-number" v-text="trip.availableSeat"></td>
-                    <td class="td-action">
-                        <tooltip text="View Trip">
-                            <icon-button @click="showArrivalPlacesModal(trip._id)" name="bus" v-ripple trigger-tooltip class="color-green-900"></icon-button>
-                        </tooltip>
-                        <tooltip text="View Tickets">
-                            <icon-button  name="ticket-confirmation" v-ripple trigger-tooltip class="color-primary-900"></icon-button>
-                        </tooltip>
-                    </td>-->
-                </tr>
-                <tr v-if="!$subReady">
-                    <td colspan="100"  class="font-center">Loading</td>
-                </tr>
-                <tr v-if="$subReady && !value">
-                    <td colspan="100" class="font-center">No Data</td>
-                </tr>
-            </tbody>
-        </table>
-    </data-table>
+    <div>
+        <clearfix>
+            <div class="pull-left">
+                <raised-button @click="goToCompare" class="primary" v-ripple :disabled="!showButtonCompare">Compare Selected</raised-button>
+            </div>
+        </clearfix>
+        <data-table class="sortable">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="unsortable"></th>
+                        <th class="">CPU</th>
+                        <th>Speed</th>
+                        <th>Cores</th>
+                        <th>TDP (W)</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(v, index) in value" style="cursor: pointer">
+                        <td>
+                            <checkbox style="margin-top: -12px; margin-bottom: -12px;" v-model="checkbox[index]" :disabled="v.checkboxDisabled"></checkbox>
+                        </td>
+                        <td @click="goTo(v._id)" v-if="v.manufacturer()">{{v.manufacturer().name}} {{v.name}}</td>
+                        <td @click="goTo(v._id)">{{v.operatingFrequency}} GHz</td>
+                        <td @click="goTo(v._id)">{{v.cores}}</td>
+                        <td @click="goTo(v._id)">{{v.thermalDesignPower}} W</td>
+                        <td @click="goTo(v._id)"></td>
+                    </tr>
+                    <tr v-if="!$subReady">
+                        <td colspan="100"  class="font-center">Loading</td>
+                    </tr>
+                    <tr v-if="$subReady && !value">
+                        <td colspan="100" class="font-center">No Data</td>
+                    </tr>
+                </tbody>
+            </table>
+        </data-table>
+    </div>
+        
 </template>
 
 <script>
@@ -49,10 +46,50 @@
         props: {
             value: Array,
         },
+        data() {
+            return {
+                checkbox: [],
+                itemToCompare: [],
+                showButtonCompare: false,
+            }
+        },
+        mounted() {
+            this.value.forEach(item=> {
+                this.checkbox.push(false);
+            })
+        },
+        watch: {
+            checkbox() {
+                let itemCount = 0;;
+                this.itemToCompare = [],
+                this.checkbox.forEach((item, index)=> {
+                    if (item) {
+                        itemCount++;
+                        this.itemToCompare.push(this.value[index]._id);
+                    }
+                })
+                this.showButtonCompare = itemCount > 1;
+
+                if (this.itemToCompare.length === 2) {
+                    this.value.forEach((item, index) => {
+                        item.checkboxDisabled = !this.checkbox[index];
+                    })
+                } else {
+                    this.value.forEach((item, index) => {
+                        item.checkboxDisabled = false;
+                    })
+                }
+            }
+        },
         methods: {
             goTo(id) {
                 this.$router.push("/product/details/" + id);
+            },
+            goToCompare() {
+                Session.set("compare", this.itemToCompare);
+                this.$router.push("/product/compare");
             }
-        }
+            
+        },
     }
 </script>
