@@ -20,6 +20,10 @@
                                 <menu-item @click="goToAddProduct">Add Product</menu-item>
                                 <divider></divider>
                             </div>
+                            <div v-if="loginUser.isCustomer()">
+                                <menu-item @click="goToPostGuide">Post Guide</menu-item>
+                                <divider></divider>
+                            </div>
                             <menu-item>My Account</menu-item>
                             <menu-item @click="signOut">Sign Out</menu-item>
                         </menu-content>
@@ -162,6 +166,9 @@ export default {
         },
         goToAddProduct() {
             this.$router.push("/dashboard/product/add")
+        },
+        goToPostGuide() {
+            this.$router.push("/dashboard/post-guide")
         }
     },
     watch: {

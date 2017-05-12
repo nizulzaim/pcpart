@@ -25,7 +25,7 @@ export default [{
     }
 }, {
     path: `${routesParent}/product/:type`,
-    name: "Index",
+    name: "Products",
     meta: { fixToolbar: true,depth: 1, pageTitle: "Choose a CPU" },
     components: {
         default: Product,

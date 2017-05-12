@@ -32,7 +32,7 @@
                         <td v-for="(item, index) in productsModify"><span class="font-subhead no-margin">{{item.dataWidthString }}</span></td>
                     </tr>
                     <tr>
-                        <td class="font-light">Mximum Supported Memory</td>
+                        <td class="font-light">Maximum Supported Memory</td>
                         <td v-for="(item, index) in productsModify"><span class="font-subhead no-margin">{{item.maximumSupportedMemoryString }}</span></td>
                     </tr>
                     <tr>
