@@ -1,7 +1,7 @@
 <template> 
     <div>
         <clearfix>
-            <div class="pull-right" v-if="loginUser && loginUser.isCustomer()">
+            <div class="pull-right" v-if="loginUser && loginUser.isAdmin()">
                 <raised-button @click="showAdd= true" class="primary" v-ripple><icon name="plus"></icon> Add New</raised-button>
             </div>
         </clearfix>
@@ -13,7 +13,6 @@
                         <th>Website</th>
                         <th>Price</th>
                         <th class="th-action unsortable"></th>
-                        <!--<th class="th-action unsortable"></th>-->
                     </tr>
                 </thead>
                 <tbody>
@@ -31,7 +30,7 @@
                     <tr v-if="!$subReady && !subReady.sellers">
                         <td colspan="100"  class="font-center">Loading</td>
                     </tr>
-                    <tr v-if="$subReady && !sellers.count()">
+                    <tr v-if="$subReady && sellers.length === 0">
                         <td colspan="100" class="font-center">No Seller</td>
                     </tr>
                 </tbody>

@@ -6,7 +6,9 @@
                 <scroll-bar>
                     <span>
                         <router-view name="toolbar"></router-view>
-                        <router-view ></router-view>
+                        <transition name="slide-fade">
+                            <router-view ></router-view>
+                        </transition>
                     </span>
                 </scroll-bar>
             </div>
@@ -27,3 +29,16 @@
         
     }
 </script>
+
+<style>
+    .slide-fade-enter-active {
+        transition: all .3s cubic-bezier(.4, 0, .2, 1);
+    }
+    .slide-fade-leave-active {
+        transition: all .175s cubic-bezier(.4, 0, 0 , 1);
+        display: none;
+    }
+    .slide-fade-enter, .slide-fade-leave-to {
+        opacity: 0;
+    }
+</style>

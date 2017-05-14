@@ -1,25 +1,25 @@
 <template>
     <cards-content>
         <div class="row has-gutter">
-            <div class="col-xs-fluid-8">
+            <div class="col-xs-fluid-12">
                 <textfield v-model="value.socket" placeholder="Socket"></textfield>
             </div>
-            <div class="col-xs-fluid-10">
+            <div class="col-xs-fluid-12">
                 <textfield v-model="value.bearingType" placeholder="Bearing Type"></textfield>
             </div>
-            <div class="col-xs-fluid-10">
+            <div class="col-xs-fluid-12">
                 <textfield v-model="value.maxNoiseLevel" placeholder="Max Noise Level (dbA)"></textfield>
             </div>
-            <div class="col-xs-fluid-10">
-                <textfield v-model="value.minNoiseLevel" placeholder="Min Noise Level (dbA)"></textfield>
+            <div class="col-xs-fluid-12">
+                <textfield v-model="value.minNoiseLevel" placeholder="Min Noise Level (dbA)" message="Enter this field if has min value"></textfield>
             </div>
-            <div class="col-xs-fluid-6">
+            <div class="col-xs-fluid-12">
                 <textfield v-model="value.maxFan" placeholder="Max Fan RPM"></textfield>
             </div>
-            <div class="col-xs-fluid-6">
-                <textfield v-model="value.minFan" placeholder="Min Fan RPM"></textfield>
+            <div class="col-xs-fluid-12">
+                <textfield v-model="value.minFan" placeholder="Min Fan RPM" message="Enter this field if has min value"></textfield>
             </div>
-            <div class="col-xs-fluid-8">
+            <div class="col-xs-fluid-12">
                 <textfield v-model="value.height" placeholder="Height (mm)"></textfield>
             </div>
             <div class="col-xs-fluid-24">

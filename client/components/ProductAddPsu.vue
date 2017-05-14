@@ -2,7 +2,7 @@
     <cards-content>
         <div class="row has-gutter">
             <div class="col-xs-fluid-8">
-                <textfield v-model="value.type" placeholder="Type"></textfield>
+                <textfield v-model="value.psuType" placeholder="Type"></textfield>
             </div>
             <div class="col-xs-fluid-12">
                 <textfield v-model="value.wattage" placeholder="Wattage (Watt)"></textfield>

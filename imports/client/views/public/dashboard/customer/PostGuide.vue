@@ -4,7 +4,7 @@
              <div class="row has-gutter center-xs">
                 <div class="col-xs-fluid-24 col-md-12">
                     <cards>
-                        <form @submit.prevent="postGuide">
+                        <form @submit.prevent="nextShow(0)">
                             <cards-content>
                                 <div class="font-title no-margin">Post your guide with every details</div>
                             </cards-content>
@@ -23,14 +23,22 @@
                             <divider></divider>
                             <cards-action>
                                 <div class="pull-right">
-                                    <color-button class="primary" type="submit" v-ripple>Post Guide</color-button>
+                                    <color-button class="primary" type="submit" v-ripple>Next</color-button>
                                 </div>
                             </cards-action>
                         </form>
                     </cards>
                 </div>
-             </div>
-         </page-container>
+            </div>
+        </page-container>
+        <guide-cpu v-model="element[0]" @done="nextShow(1)"></guide-cpu>
+        <guide-cpucooler v-model="element[1]" @done="nextShow(2)"></guide-cpucooler>
+        <guide-motherboard v-model="element[2]" @done="nextShow(3)"></guide-motherboard>
+        <guide-memory v-model="element[3]" @done="nextShow(4)"></guide-memory>
+        <guide-storage v-model="element[4]" @done="nextShow(5)"></guide-storage>
+        <guide-gpu v-model="element[5]" @done="nextShow(6)"></guide-gpu>
+        <guide-psu v-model="element[6]" @done="nextShow(7)"></guide-psu>
+        <guide-case v-model="element[7]" @done="postGuide"></guide-case>
     </div>
 </template>
 
@@ -50,11 +58,53 @@
                     VideocardDescription: "",
                     PSUDescription: "",
                     CaseDescription: "",
-                }
+                },
+                element: [
+                    {
+                        id: "",
+                        showReveal: false,
+                    },
+                    {
+                        id: "",
+                        showReveal: false,
+                    },
+                    {
+                        id: "",
+                        showReveal: false,
+                    },
+                    {
+                        id: "",
+                        showReveal: false,
+                    },
+                    {
+                        id: "",
+                        showReveal: false,
+                    },
+                    {
+                        id: "",
+                        showReveal: false,
+                    },
+                    {
+                        id: "",
+                        showReveal: false,
+                    },
+                    {
+                        id: "",
+                        showReveal: false,
+                    }
+                ]
+                
             }
         },
         methods: {
+            nextShow(val) {
+                if (val > 0) {
+                    this.element[val - 1].showReveal = false;
+                }
+                this.element[val].showReveal = true;
+            },
             postGuide() {
+                this.element[7].showReveal = false;
                 let guide = new Guide();
                 if (this.post.title === "") {
                     this.$snackbar.run("Please enter the title");
@@ -63,7 +113,7 @@
                 if (this.post.GeneralDescription === "") {
                     this.$snackbar.run("Please enter the general description of this post");
                 }
-                guide.callMethod("create", this.post, (err, res)=> {
+                guide.callMethod("create", this.post, this.element, (err, res)=> {
                     if (err) {
                         return this.$snackbar.run("Error when creating the guide" + err.reason, ()=>{}, "OK", "error");
                     }

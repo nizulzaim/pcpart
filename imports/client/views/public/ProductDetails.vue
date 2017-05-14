@@ -1,8 +1,8 @@
 <template>
-    <div class="appbar-padding" style="overflow-x: hidden;">
-        <div class="row" v-if="$subReady && $subReady.products" style="min-height: 100%;">
-            <div class="col-xs-fluid-24">
-                <div style="padding: 80px 0; z-index: 100" v-depth="1" class="background-blue-grey-700">
+    <div style="overflow-x: hidden; min-height: 100vh" >
+        <div class="row appbar-padding" v-if="$subReady && $subReady.products" style="min-height: inherit">
+             <div class="col-xs-fluid-24">
+                <div style="padding: 80px 0; z-index: 100; height: 100%" v-depth="1" class="background-blue-grey-700">
                     <div class="font-subhead font-bold font-center color-grey-200">
                         {{product.type.toUpperCase()}}
                     </div>
@@ -14,16 +14,17 @@
             <div class="col-md-7 background-grey-200">
                 <div style="padding: 40px;">
                     <cards>
-                        <cards-image :img="product.getImageLink()" style="padding-bottom: 100%"></cards-image>
+                        <cards-image v-if="product.getImageLink()" :img="product.getImageLink()" style="padding-bottom: 100%"></cards-image>
                     </cards>
-                    <cpu-details v-if="product.type === 'Cpu'" v-model="product"></cpu-details>
+                    <component :is="product.type.toLowerCase() + '-details'" v-model="product"></component>
                 </div>
             </div>
             <div class="col-md background-grey-100" v-depth="1">
                 <div style="padding: 40px;">
-                    <cpu-details-seller v-if="product.type === 'Cpu'" v-model="product"></cpu-details-seller>
+                    <details-seller v-model="product"></details-seller>
                 </div>
             </div>
+            
         </div>
     </div>
 </template>

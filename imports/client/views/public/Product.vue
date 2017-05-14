@@ -1,7 +1,7 @@
 <template>
     <div class="appbar-padding" style="overflow-x: hidden; height: 100vh;" >
         <div class="row" style="height: 100%;">
-            <div class="col-md-6  background-grey-200">
+            <div class="col-md-fluid-6  background-grey-200">
                 <div style="padding: 36px;">
                     <div class="row">
                         <div class="col-xs-fluid-24">
@@ -18,14 +18,13 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md background-grey-100" v-depth="1" style="width:100%">
+            <div class="col-md-fluid-18 background-grey-100" v-depth="1" style="width:100%">
                 <div style="padding: 20px;">
                     <div class="row has-gutter">
                         <div class="col-xs-fluid-24">
                             <div class="font-title">Parts</div>
                             <divider style="margin-bottom: 40px;"></divider>
-
-                            <cpu-table v-model="products"></cpu-table>
+                            <component :is="type + '-table'" v-model="products"></component>
                         </div>
                     </div>
                 </div>
@@ -35,16 +34,27 @@
 </template>
 
 <script>
-    import {Product, Cpu} from "/imports/model/Product";
+    import {Product} from "/imports/model/Product";
     export default {
         data() {
             return {
                 rangeValue: 3000,
+                type: this.$route.params.type,
+            }
+        },
+        methods: {
+            convert_case(str) {
+                var lower = str.toLowerCase();
+                return lower.replace(/(^| )(\w)/g, function(x) {
+                    return x.toUpperCase();
+                });
             }
         },
         meteor: {
             subscribe: {
-                products: ["Cpu"],
+                products() {
+                    return [this.convert_case(this.type)]
+                },
             },
             products() {
                 return Product.find();

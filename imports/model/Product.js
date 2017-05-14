@@ -13,10 +13,10 @@ export const Product = Class.create({
     typeField: 'type',
     collection: new Mongo.Collection("products"),
     fields: {
-        name: String,
+        name: {type: String},
         manufacturerId: String,
-        partNo: String,
-        imageId: String,
+        partNo: {type: String},
+        imageId: {type: String},
         // model: Number,
     },
     behaviors: {
@@ -78,6 +78,21 @@ export const Cpucooler = Product.inherit({
         minFan: Number,
         maxFan: Number,
         height: Number,
+    },
+    helpers: {
+        noiseLevel() {
+            if (this.minNoiseLevel) {
+                return this.minNoiseLevel + " - " + this.maxNoiseLevel + " dB";
+            }
+
+            return this.maxNoiseLevel + " dB";
+        },
+        fanSpeed() {
+            if (this.minFan) {
+                return this.minFan + " - " + this.maxFan + " rpm";
+            }
+            return this.maxFan + " rpm";
+        }
     }
 });
 
@@ -105,7 +120,7 @@ export const Motherboard = Product.inherit({
 export const Memory = Product.inherit({
     name: 'Memory',
     fields: {
-        type: String,
+        memoryType: String,
         speed: String,
         size: String,
         pricePerGb: Number,
@@ -120,7 +135,7 @@ export const Memory = Product.inherit({
 });
 
 export const Storage = Product.inherit({
-    name: 'Memory',
+    name: 'Storage',
     fields: {
         capacity: Number,
         interface: String,
@@ -139,12 +154,12 @@ export const Gpu = Product.inherit({
         memorySize: Number,
         memoryType: String,
         coreClock: Number,
-        boosClock: Number,
+        boostClock: Number,
         tdp: Number,
         fan: Boolean,
         sliSupport: Boolean,
         crossFireSupport: Boolean,
-        length: Number,
+        sizeLength: Number,
         dviDualLink: Number,
         hdmi: Number,
         vga: Number,
@@ -155,7 +170,7 @@ export const Gpu = Product.inherit({
 export const Psu = Product.inherit({
     name: 'Psu',
     fields: {
-        type: String,
+        psuType: String,
         wattage: Number,
         fans: Number,
         modular: String,
@@ -168,7 +183,7 @@ export const Psu = Product.inherit({
 export const Case = Product.inherit({
     name: 'Case',
     fields: {
-        type: String,
+        caseType: String,
         color: String,
         includePowerSupply: Boolean,
         external35Bays: Number,
@@ -181,11 +196,18 @@ export const Case = Product.inherit({
         frontUsb3ports: Boolean,
         maximumVideoCardLength: Number,
         width: Number,
-        length: Number,
+        sizeLength: Number,
         height: Number,
+    },
+    helpers: {
+        includePowerSupplyString() {
+            return this.includePowerSupply ? "Yes": "No";
+        },
+        dimensions() {
+            return this.width + "mm x " + this.sizeLength + "mm x " + this.height + "mm";
+        }
     }
 });
-
 
 if (Meteor.isServer) {
     Product.extend({
@@ -241,6 +263,18 @@ if (Meteor.isServer) {
         return {
             find: function() {
                 return Product.find({_id: {$in: arrayId}});
+            },
+            children,
+        };
+    });
+
+    Meteor.publishComposite('productsSearch', function(type="", search = "",limit = 10) {
+        return {
+            find: function() {
+                if (search) {
+                    return Product.find({type, name: {'$regex' : search, '$options' : 'i'}}, {limit});
+                }
+                return Product.find({type}, {limit});
             },
             children,
         };

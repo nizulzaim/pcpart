@@ -43,7 +43,7 @@
                     return p;
                 }
             }
-        }
+        },
     }
 </script>
 

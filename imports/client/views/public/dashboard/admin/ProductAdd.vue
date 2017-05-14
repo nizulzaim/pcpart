@@ -55,8 +55,8 @@
                             <product-add-memory v-if="type=== 'Memory'" v-model="memory"></product-add-memory>
                             <product-add-storage v-if="type=== 'Storage'" v-model="storage"></product-add-storage>
                             <product-add-psu v-if="type=== 'Psu'" v-model="psu"></product-add-psu>
-                            <!--<product-add-gpu v-if="type=== 'Gpu'" v-model="gpu"></product-add-gpu>-->
-                            <!--<product-add-case v-if="type=== 'Case'" v-model="case"></product-add-case>-->
+                            <product-add-gpu v-if="type=== 'Gpu'" v-model="gpu"></product-add-gpu>
+                            <product-add-case v-if="type=== 'Case'" v-model="casing"></product-add-case>
                             <divider></divider>
                             <cards-action>
                                 <div class="pull-right">
@@ -129,11 +129,11 @@
                     socket: "",
                     liquidCooled: false,
                     bearingType: "",
-                    minNoiseLevel: 0,
-                    maxNoiseLevel: 0,
-                    minFan: 0,
-                    maxFan: 0,
-                    height: 0,
+                    minNoiseLevel: "",
+                    maxNoiseLevel: "",
+                    minFan: "",
+                    maxFan: "",
+                    height: "",
                 },
                 motherboard: {
                     formFactor: "",
@@ -152,7 +152,7 @@
                     onboardUsb3: false,
                 },
                 memory: {
-                    type: "",
+                    memoryType: "",
                     speed: "",
                     size: "",
                     pricePerGb: "0",
@@ -172,7 +172,7 @@
                     formFactor: "",
                 },
                 psu: {
-                    type: "",
+                    psuType: "",
                     wattage: "0",
                     fans: "0",
                     modular: "",
@@ -180,8 +180,40 @@
                     efficiencyCert: "",
                     pcieConnector: "0",
                 },
-                gpu: {},
-                case: {},
+                gpu: {
+                    interface: "",
+                    chipset: "",
+                    memorySize: "",
+                    memoryType: "",
+                    coreClock: "",
+                    boostClock: "",
+                    tdp: "",
+                    fan: false,
+                    sliSupport: false,
+                    crossFireSupport: false,
+                    sizeLength: "",
+                    dviDualLink: "",
+                    hdmi: "",
+                    vga: "",
+                    displayPort: "",
+                },
+                casing: {
+                    caseType: "",
+                    color: "",
+                    includePowerSupply: false,
+                    external35Bays: "",
+                    internal35Bays: "",
+                    internal25Bays: "",
+                    external25Bays: "",
+                    internal525Bays: "",
+                    external525Bays: "",
+                    motherboardCompatibility: "",
+                    frontUsb3ports: false,
+                    maximumVideoCardLength: "",
+                    width: "",
+                    sizeLength: "",
+                    height: "",
+                },
                 type: "",
                 image: "",
             }
@@ -246,7 +278,7 @@
                     onboardUsb3: false,
                 }
                 this.memory= {
-                    type: "0",
+                    memoryType: "0",
                     speed: "",
                     size: "",
                     pricePerGb: "0",
@@ -268,13 +300,49 @@
                 }
 
                 this.psu = {
-                    type: "",
+                    psuType: "",
                     wattage: "0",
                     fans: "0",
                     modular: "",
                     output: "",
                     efficiencyCert: "",
                     pcieConnector: "0",
+                };
+
+                this.gpu = {
+                    interface: "",
+                    chipset: "",
+                    memorySize: "0",
+                    memoryType: "",
+                    coreClock: "0",
+                    boostClock: "0",
+                    tdp: "0",
+                    fan: false,
+                    sliSupport: false,
+                    crossFireSupport: false,
+                    sizeLength: "0",
+                    dviDualLink: "0",
+                    hdmi: "0",
+                    vga: "0",
+                    displayPort: "0",
+                };
+
+                this.casing = {
+                    caseType: "",
+                    color: "",
+                    includePowerSupply: false,
+                    external35Bays: "",
+                    internal35Bays: "",
+                    internal25Bays: "",
+                    external25Bays: "",
+                    internal525Bays: "",
+                    external525Bays: "",
+                    motherboardCompatibility: "",
+                    frontUsb3ports: false,
+                    maximumVideoCardLength: "",
+                    width: "",
+                    sizeLength: "",
+                    height: "",
                 };
             },
             create() {
@@ -297,27 +365,27 @@
 
                 if (this.type === "Memory") {
                     p = new Memory();
-                    this.specificParse = this.motherboard;
+                    this.specificParse = this.memory;
                 }
 
                 if (this.type === "Storage") {
                     p = new Storage();
-                    this.specificParse = this.motherboard;
+                    this.specificParse = this.storage;
                 }
 
                 if (this.type === "Gpu") {
                     p = new Gpu();
-                    this.specificParse = this.motherboard;
+                    this.specificParse = this.gpu;
                 }
 
                 if (this.type === "Psu") {
                     p = new Psu();
-                    this.specificParse = this.motherboard;
+                    this.specificParse = this.psu;
                 }
 
                 if (this.type === "Case") {
                     p = new Case();
-                    this.specificParse = this.motherboard;
+                    this.specificParse = this.casing;
                 }
 
                 p.callMethod("create",this.parse, this.specificParse, (err, res) => {

@@ -9,7 +9,9 @@
 							Building your own PC and need ideas on where to get started? Explore our build guides, which cover systems for all use-cases and budgets, or create your own and share it with our community.
 						</div>
 						<div>
-							<raised-button v-ripple>Build Guides</raised-button>
+							<router-link to="/guides/">
+								<raised-button v-ripple>Build Guides</raised-button>
+							</router-link>
 						</div>
 					</div>
 
@@ -52,7 +54,7 @@
 								</router-link>
 							</div>
 							<div class="col-xs-fluid-6">
-								<router-link to="/hello">
+								<router-link to="/product/cpucooler">
 									<cards v-ripple>
 										<div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;background: #000; opacity: 0.2"></div>
 										<img src="/img/nav-cpucooler.png" alt="">
@@ -60,7 +62,7 @@
 								</router-link>
 							</div>
 							<div class="col-xs-fluid-6">
-								<router-link to="/hello">
+								<router-link to="/product/motherboard">
 									<cards v-ripple>
 										<div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;background: #000; opacity: 0.2"></div>
 										<img src="/img/nav-motherboard.png" alt="">
@@ -68,7 +70,7 @@
 								</router-link>
 							</div>
 							<div class="col-xs-fluid-6">
-								<router-link to="/hello">
+								<router-link to="/product/memory">
 									<cards v-ripple>
 										<div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;background: #000; opacity: 0.2"></div>
 										<img src="/img/nav-memory.png" alt="">
@@ -76,7 +78,7 @@
 								</router-link>
 							</div>
 							<div class="col-xs-fluid-6">
-								<router-link to="/hello">
+								<router-link to="/product/storage">
 									<cards v-ripple>
 										<div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;background: #000; opacity: 0.2"></div>
 										<img src="/img/nav-ssd.png" alt="">
@@ -84,7 +86,7 @@
 								</router-link>
 							</div>
 							<div class="col-xs-fluid-6">
-								<router-link to="/hello">
+								<router-link to="/product/gpu">
 									<cards v-ripple>
 										<div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;background: #000; opacity: 0.2"></div>
 										<img src="/img/nav-videocard.png" alt="">
@@ -92,7 +94,7 @@
 								</router-link>
 							</div>
 							<div class="col-xs-fluid-6">
-								<router-link to="/hello">
+								<router-link to="/product/psu">
 									<cards v-ripple>
 										<div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;background: #000; opacity: 0.2"></div>
 										<img src="/img/nav-powersupply.png" alt="">
@@ -100,7 +102,7 @@
 								</router-link>
 							</div>
 							<div class="col-xs-fluid-6">
-								<router-link to="/hello">
+								<router-link to="/product/case">
 									<cards v-ripple>
 										<div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;background: #000; opacity: 0.2"></div>
 										<img src="/img/nav-case.png" alt="">

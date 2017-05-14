@@ -14,7 +14,7 @@
                 <textfield v-model="value.operatingFrequency" placeholder="Operating Freq. (GHz)"></textfield>
             </div>
             <div class="col-xs-fluid-10">
-                <textfield v-model="value.maxTurboFrequency" placeholder="Max Turbo Freq. (GHz)"></textfield>
+                <textfield v-model="value.maxTurboFrequency" placeholder="Max Turbo Freq. (GHz)" :message="message"></textfield>
             </div>
             <div class="col-xs-fluid-6">
                 <textfield v-model="value.cores" placeholder="Cores"></textfield>
@@ -26,10 +26,10 @@
                 <textfield v-model="value.l1Cache" placeholder="L1 Cache"></textfield>
             </div>
             <div class="col-xs-fluid-8">
-                <textfield v-model="value.l2Cache" placeholder="L2 Cache"></textfield>
+                <textfield v-model="value.l2Cache" placeholder="L2 Cache" :message="message"></textfield>
             </div>
             <div class="col-xs-fluid-8">
-                <textfield v-model="value.l3Cache" placeholder="L3 Cache"></textfield>
+                <textfield v-model="value.l3Cache" placeholder="L3 Cache" :message="message"></textfield>
             </div>
             <div class="col-xs-fluid-8">
                 <dropdown-select v-model="value.maximumSupportedMemory" label="Maximum Memory">
@@ -43,7 +43,7 @@
                 </dropdown-select>
             </div>
             <div class="col-xs-fluid-8">
-                <textfield v-model="value.integratedGraphics" placeholder="Integrated Graphics"></textfield>
+                <textfield v-model="value.integratedGraphics" placeholder="Integrated Graphics" :message="message"></textfield>
             </div>
             <div class="col-xs-fluid-8">
                 <textfield v-model="value.lithography" placeholder="Lithography (nm)"></textfield>
@@ -76,6 +76,11 @@
     export default {
         props: {
             value: Object,
+        },
+        data() {
+            return {
+                message: "Leave blank if no details",
+            }
         }
     }
 // cpu: {

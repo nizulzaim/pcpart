@@ -10,10 +10,11 @@
                 <thead>
                     <tr>
                         <th class="unsortable"></th>
-                        <th class="">CPU</th>
+                        <th class="">Memory</th>
+                        <th>Type</th>
                         <th>Speed</th>
-                        <th>Cores</th>
-                        <th>TDP (W)</th>
+                        <th>Size</th>
+                        <th>Voltage</th>
                         <th>Price</th>
                     </tr>
                 </thead>
@@ -23,9 +24,10 @@
                             <checkbox style="margin-top: -12px; margin-bottom: -12px;" v-model="checkbox[index]" :disabled="v.checkboxDisabled"></checkbox>
                         </td>
                         <td @click="goTo(v._id)" v-if="v.manufacturer()">{{v.manufacturer().name}} {{v.name}}</td>
-                        <td @click="goTo(v._id)">{{v.operatingFrequency}} GHz</td>
-                        <td @click="goTo(v._id)">{{v.cores}}</td>
-                        <td @click="goTo(v._id)">{{v.thermalDesignPower}} W</td>
+                        <td @click="goTo(v._id)">{{v.type}}</td>
+                        <td @click="goTo(v._id)">{{v.speed}}</td>
+                        <td @click="goTo(v._id)">{{v.size}}</td>
+                        <td @click="goTo(v._id)">{{v.voltage}}</td>
                         <td @click="goTo(v._id)"></td>
                     </tr>
                     <tr v-if="!$subReady">
@@ -86,7 +88,7 @@
                 this.$router.push("/product/details/" + id);
             },
             goToCompare() {
-                this.$router.push("/product/compare?type=cpu&compare="+ this.itemToCompare);
+                this.$router.push("/product/compare?type=memory&compare="+ this.itemToCompare);
             }
             
         },
