@@ -4,4 +4,3 @@ node_modules/
 .desktopTmp/
 .vscode/
 version.desktop
-packages/
