@@ -1,5 +1,6 @@
 import {Class} from 'meteor/jagi:astronomy';
 import {Meteor} from "meteor/meteor";
+import {User} from "./User";
 
 export const GuideComment = Class.create({
     name: "GuideComment",
@@ -27,6 +28,11 @@ export const GuideComment = Class.create({
             removedAtFieldName: 'removedAt'
         }
     },
+    helpers: {
+        user() {
+            return User.findOne(this.userId);
+        }
+    }
 });
 
 if (Meteor.isServer) {
@@ -46,6 +52,13 @@ if (Meteor.isServer) {
             find: function() {
                 return GuideComment.find({guideId: id});
             },
+            children: [
+                {
+                    find(gc) {
+                        return User.find(gc.userId);
+                    }
+                }
+            ]
         };
     });
 }

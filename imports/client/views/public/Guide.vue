@@ -98,7 +98,7 @@
                         </cards>
                         <div class="row" v-for="g in guideComments" style="margin-top: 20px; margin-bottom: 10px;">
                             <div class="col-xs-1">
-                                <avatar text="" v-depth="1"></avatar>
+                                <avatar :text="g.user() ? g.user().profile.firstname : ''" v-depth="1"></avatar>
                             </div>
                             <div class="col-xs">
                                 <cards>
@@ -107,7 +107,7 @@
                                     </cards-content>
                                     <divider></divider>
                                     <cards-content class="background-grey-50">
-                                        <div class="font-caption no-margin">{{g.createdAt | moment("DD MMMM YYYY HH:mm A")}}</div>
+                                        <div class="font-caption no-margin">{{g.createdAt | moment("DD MMMM YYYY HH:mm A")}} | <span v-if="g.user()">{{g.user().profile.firstname}}</span></div>
                                     </cards-content>
                                 </cards>
                             </div>
@@ -174,6 +174,9 @@
                     return [this.$route.params.id];
                 },
                 loginUser: [],
+                guidecomments() {
+                    return [this.$route.params.id];
+                },
             },
             products() {
                 return Product.find();

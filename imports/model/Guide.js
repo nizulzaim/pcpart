@@ -100,7 +100,8 @@ if (Meteor.isServer) {
                 }, {
                     find(guide) {
                         return GuideLove.find({guideId: guide._id, userId: this.userId});
-                    }
+                    },
+                    
                 },
                 {
                     find(guide) {
@@ -110,7 +111,7 @@ if (Meteor.isServer) {
                 {
                     find(guide) {
                         return GuideComment.find({guideId: guide._id});
-                    }
+                    },
                 }
                 
             ]
