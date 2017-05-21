@@ -2,6 +2,7 @@ import {Class} from 'meteor/jagi:astronomy';
 import {Meteor} from "meteor/meteor";
 import {Product} from "./Product";
 import {GuideLove} from "./GuideLove";
+import {GuideComment} from "./GuideComment";
 import {User} from "./User";
 
 
@@ -104,6 +105,11 @@ if (Meteor.isServer) {
                 {
                     find(guide) {
                         return User.find(guide.author);
+                    }
+                },
+                {
+                    find(guide) {
+                        return GuideComment.find({guideId: guide._id});
                     }
                 }
                 

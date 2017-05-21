@@ -52,14 +52,88 @@
                                 <div class="font-headline">Case</div>
                                 <divider></divider>
                                 <div class="font-subhead">{{guide.CaseDescription}}</div>
-
-                                 <!--MotherboardDescription: {type: String, optional: true},
-        MemoryDescription: {type: String, optional: true},
-        StorageDescription: {type: String, optional: true},
-        VideocardDescription: {type: String, optional: true},
-        PSUDescription: {type: String, optional: true},
-        CaseDescription: {type: String, optional: true},-->
                             </cards-content>
+                        </cards>
+
+                        <cards>
+                            <cards-content>
+                                <div class="row has-gutter middle-xs">
+                                    <div class="col-xs-2">Components</div>
+                                    <div class="col-xs-1"></div>
+                                    <div class="col-xs-1"></div>
+                                    <div class="col-xs">Product Name</div>
+                                    <div class="col-xs-2">Price</div>
+                                </div>
+                                <divider style="margin-top: 10px; margin-bottom: 20px;"></divider>
+                                <div v-for="p in products">
+                                    <div class="row has-gutter middle-xs">
+                                        <div class="col-xs-2">
+                                            <router-link :to="'/product/' + p.type.toLowerCase()">
+                                                <div class="font-subhead no-margin">{{p.type.toUpperCase()}}</div>
+                                            </router-link>
+                                        </div>
+                                        <div class="col-xs-1">
+                                            <router-link :to="'/product/details/' + p._id">
+                                                <!--<cards-image style="padding-bottom: 100%"></cards-image>-->
+                                                <cards-image :img="p.getImageLink() ? p.getImageLink() : ''" style="padding-bottom: 100%"></cards-image>
+                                            </router-link>
+                                        </div>
+                                        <div class="col-xs-1"></div>
+                                        <div class="col-xs">
+                                            <div>
+                                                <router-link :to="'/product/details/' + p._id">
+                                                    {{p.name}}
+                                                </router-link>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="col-xs-2">
+                                            
+                                        </div>
+                                    </div>
+                                    <divider style="margin-top: 10px; margin-bottom: 20px;"></divider>
+                                </div>
+                                
+                            </cards-content>
+                        </cards>
+                        <div class="row" v-for="g in guideComments" style="margin-top: 20px; margin-bottom: 10px;">
+                            <div class="col-xs-1">
+                                <avatar text="" v-depth="1"></avatar>
+                            </div>
+                            <div class="col-xs">
+                                <cards>
+                                    <cards-content>
+                                        <div>{{g.text}}</div>
+                                    </cards-content>
+                                    <divider></divider>
+                                    <cards-content class="background-grey-50">
+                                        <div class="font-caption no-margin">{{g.createdAt | moment("DD MMMM YYYY HH:mm A")}}</div>
+                                    </cards-content>
+                                </cards>
+                            </div>
+                        </div>
+                        
+                        <cards v-if="!loginUser">
+                            <cards-content>
+                                <div class="font-subhead font-center">Login to continue</div>
+                                <div class="button-center-container">
+                                    <flat-button class="primary" v-ripple>Register</flat-button>
+                                    <raised-button class="primary" v-ripple>Sign In</raised-button>
+                                </div>
+                            </cards-content>
+                        </cards>
+                        <cards v-if="loginUser">
+                            <form @submit.prevent="postComment">
+                                <cards-content>
+                                    <textfield v-model="textComment" type="multiline" placeholder="Your Comment"></textfield>
+                                </cards-content>
+                                <divider></divider>
+                                <cards-action>
+                                    <div class="pull-right">
+                                        <raised-button type="submit" class="primary" v-ripple>Comment</raised-button>
+                                    </div>
+                                </cards-action>
+                            </form>
                         </cards>
                     </div>
                 </div>
@@ -71,16 +145,48 @@
 
 <script>
     import {Guide} from '/imports/model/Guide.js';
+    import {GuideComment} from '/imports/model/GuideComment.js';
+    import {Product} from '/imports/model/Product.js';
+    import {User} from '/imports/model/User.js';
+
     export default {
+        data() {
+            return {
+                textComment: "",
+            }
+        },
+        methods:{
+            postComment() {
+                let comment = new GuideComment();
+                comment.callMethod("create", this.textComment, this.$route.params.id, (err, reason)=> {
+                    this.textComment = "";
+                    if(err) {
+                        return this.$snackbar.run(err.reason, ()=> {}, "OK", "error");
+                    }
+
+                    return this.$snackbar.run("Successfully add new comment", ()=> {});
+                });
+            }
+        },
         meteor: {
             subscribe: {
                 guides() {
                     return [this.$route.params.id];
                 },
+                loginUser: [],
+            },
+            products() {
+                return Product.find();
             },
             guide() {
                 return Guide.findOne();
+            },
+            guideComments() {
+                return GuideComment.find();
+            },
+            loginUser() {
+                return User.findOne(Meteor.userId());
             }
-        }
+        },
     }
 </script>

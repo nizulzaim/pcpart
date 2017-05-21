@@ -4,3 +4,4 @@ import "/imports/model/Product.js";
 import "/imports/model/Images.js";
 import "/imports/model/Seller.js";
 import "/imports/model/Guide.js";
+import "/imports/model/GuideComment.js";

@@ -54,7 +54,7 @@ export default [{
     }
 },{
     path: `${routesParent}/guides/`,
-    name: "Guide",
+    name: "Guides",
     meta: { fixToolbar: true,depth: 1, pageTitle: "Guides List" },
     components: {
         default: Guides,

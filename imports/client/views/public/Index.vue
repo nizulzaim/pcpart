@@ -2,7 +2,7 @@
     <div class="appbar-padding">
 		<div style="z-index:100" class="background-blue-grey-700" v-depth="1">
 			<page-container>
-				<div class="row has-gutter middle-xs" style="padding-top: 36px; padding-bottom: 36px;">
+				<div class="row has-gutter center-xs middle-xs" style="padding-top: 36px; padding-bottom: 36px;">
 					<div class="col-lg-fluid-8">
 						<div class="font-headline color-white">Build Guides</div>
 						<div class="font-subhead color-white">
@@ -16,25 +16,11 @@
 					</div>
 
 					<div class="col-lg-fluid-8">
-						<router-link to="/guides/1">
-							<cards class="cards-hover color-grey-900">
-								<cards-content>
-									<div class="font-body2 font-medium">Featured Guide</div>
-									<div class="font-headline">Enthusiast AMD Ryzen Gaming Build</div>
-								</cards-content>
-								<cards-content class="profile">
-									<avatar text="Rafael Romeli"></avatar>
-									<div class="profile-title">Rafael Romeli</div>
-									<div class="profile-subhead">Sometext Here</div>
-								</cards-content>
-								<cards-content>
-									<div class="font-subhead font-light no-margin">Sometext Here</div>
-									<div class="font-subhead font-light no-margin">Sometext Here</div>
-									<div class="font-subhead font-light">Sometext Here</div>
-									<div class="font-title">MYR 4,500.00</div>
-								</cards-content>
-							</cards>
-						</router-link>
+						<div v-for="(guide, index) in guides" :key="guide._id">
+							<transition name="slide-fade">
+								<guide-card v-model="guides[index]"></guide-card>
+							</transition>
+						</div>
 					</div>
 				</div>
 			</page-container>
@@ -116,6 +102,25 @@
 		</div>
 	</div>
 </template>
+
+<script>
+	import {Guide} from '/imports/model/Guide.js';
+    import {Product} from '/imports/model/Product.js';
+
+	export default {
+		meteor: {
+            subscribe: {
+                guides: [],
+            },
+            guides() {
+                return Guide.find({}, {limit: 1, sort: {createdAt: -1}});
+            },
+			guides9() {
+                return Guide.find({}, {limit: 9,skip: 1, sort: {createdAt: -1}});
+            }
+        },
+	}
+</script>
 
 <style lang="scss" scoped> 
 

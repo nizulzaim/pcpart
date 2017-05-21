@@ -32,17 +32,19 @@ export const GuideComment = Class.create({
 if (Meteor.isServer) {
     GuideComment.extend({
         meteorMethods: {
-            create(name) {
-                this.name = name;
-                this.save();
+            create(text, guideId) {
+                this.text = text;
+                this.guideId = guideId;
+                this.userId = Meteor.userId();
+                return this.save();
             },
         }
     });
 
-    Meteor.publishComposite('guidecomments', function() {
+    Meteor.publishComposite('guidecomments', function(id) {
         return {
             find: function() {
-                return GuideComment.find();
+                return GuideComment.find({guideId: id});
             },
         };
     });

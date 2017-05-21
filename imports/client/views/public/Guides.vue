@@ -2,9 +2,9 @@
     <div class="appbar-padding" v-wheight>
         <page-container>
             <div class="row has-gutter">
-                <div class="col-xs-fluid-24 col-md-fluid-8" v-for="guide in guides" :key="guide._id">
+                <div class="col-xs-fluid-24 col-md-fluid-8" v-for="(guide, index) in guides" :key="guide._id">
                     <transition name="slide-fade">
-                       <guide-card v-model="guide"></guide-card>
+                       <guide-card v-model="guides[index]"></guide-card>
                     </transition>
                 </div>
             </div>
