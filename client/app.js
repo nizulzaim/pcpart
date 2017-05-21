@@ -6,6 +6,7 @@ import VueHighlightJS from 'vue-highlight.js';
 import ViuUI from 'meteor/devsignstudio:viu-ui';
 import 'highlight.js/styles/monokai.css';
 
+Vue.use(require('vue-moment'));
 Vue.use(VueHighlightJS);
 Vue.use(VueHead);
 Vue.use(ViuUI);

@@ -18,6 +18,7 @@
     "vue-highlight.js": "^1.0.4",
     "vue-meta": "^0.5.3",
     "vue-meteor-tracker": "^1.0.3",
+    "vue-moment": "^2.0.2",
     "vue-router": "^2.0.0-rc.5",
     "xml2js": "^0.4.17"
   },
