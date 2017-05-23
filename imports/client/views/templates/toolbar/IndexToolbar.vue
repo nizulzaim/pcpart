@@ -4,9 +4,9 @@
             <div slot="left">
                 <icon-button name="menu" v-open v-ripple="{background: '#fff'}"></icon-button>
             </div>
-            <div slot="center" style="margin-right: 8px;">
+            <!--<div slot="center" style="margin-right: 8px;">
                 <search-box v-model="value"></search-box>
-            </div>
+            </div>-->
             <div slot="right" v-if="$subReady && $subReady.loginUser">
                 <div style="padding-top: 8px" v-if="!loginUser">
                     <flat-button @click="showRegister = true" class="white" v-ripple>Register</flat-button>
@@ -14,7 +14,9 @@
                 </div>
                 <div style="padding-top: 8px; padding-right: 8px;" v-else>
                     <dropdown-menu>
-                        <avatar trigger-menu style="cursor: pointer" :text="loginUser.profile.firstname"></avatar>
+                        <avatar trigger-menu style="cursor: pointer" :text="loginUser.profile.firstname">
+                            <img v-if="loginUser.image()" :src="loginUser.image().link()" alt="">
+                        </avatar>
                         <menu-content>
                             <div v-if="loginUser.isAdmin()">
                                 <menu-item @click="goToAddProduct">Add Product</menu-item>
@@ -24,7 +26,7 @@
                                 <menu-item @click="goToPostGuide">Post Guide</menu-item>
                                 <divider></divider>
                             </div>
-                            <menu-item>My Account</menu-item>
+                            <menu-item @click="goToMyAccount">My Account</menu-item>
                             <menu-item @click="signOut">Sign Out</menu-item>
                         </menu-content>
                     </dropdown-menu>
@@ -56,7 +58,7 @@
         </reveal>
 
         <reveal v-model="showRegister" >
-            <div class="col-md-7">
+            <div class="col-xs-fluid-24 col-md-7">
                 <cards v-depth="3">
                     <form @submit.prevent="register">
                         <cards-content>
@@ -139,10 +141,23 @@ export default {
                 }
                 this.$snackbar.run("Succesfully login");
                 this.showLogin = false;
+                
             })
         },
         register() {
             let user = new User();
+            if (this.password !== this.cpassword) {
+                this.cpassword ="";
+                this.password ="";
+                return this.$snackbar.run("Password and Confirm Password must be same", ()=> {}, "OK", "error");
+            }
+
+            if (this.password.length < 8) {
+                this.cpassword ="";
+                this.password ="";
+                return this.$snackbar.run("Password must be at least 8 characters", ()=> {}, "OK", "error");
+            }
+
             user.callMethod("create", {username: this.username, password: this.password}, {
                 email: this.email, firstname: this.firstname, lastname: this.lastname,
             }, (err,res) => {
@@ -162,6 +177,7 @@ export default {
                     }, "Retry", "error");
                 }
                 this.$snackbar.run("Succesfully logout");
+                this.$router.push("/");
             });
         },
         goToAddProduct() {
@@ -169,6 +185,12 @@ export default {
         },
         goToPostGuide() {
             this.$router.push("/dashboard/post-guide")
+        },
+        goToMyAccount() {
+            this.$router.push("/dashboard/my-account")
+        },
+        clickRegister() {
+            this.showRegister = true;
         }
     },
     watch: {
@@ -190,6 +212,19 @@ export default {
         },
         loginUser() {
             return User.findOne(Meteor.userId());
+        },
+        changingSignInPlease() {
+            if (Session.get("signInPlease")) {
+                this.showLogin = true;
+            }
+            
+            return Session.get("signInPlease");
+        },
+        changingRegisterPlease() {
+            if (Session.get("registerPlease")) {
+                this.clickRegister();
+            }
+            return Session.get("registerPlease");
         }
     }
 }

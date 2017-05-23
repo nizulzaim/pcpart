@@ -52,7 +52,7 @@
                         <td v-for="(item, index) in productsModify"><span class="font-subhead no-margin">{{item.maxTurboFrequencyString}}</span></td>
                     </tr>
                     <tr>
-                        <td class="font-light">Max Turbo Frequency</td>
+                        <td class="font-light"></td>
                         <td v-for="(item, index) in productsModify">
                             <router-link :to="'/product/details/' + item._id">
                                 <raised-button class="primary" v-ripple>

@@ -230,7 +230,7 @@
             clearText() {
                 this.parse = {
                     name: "",
-                    manufacturer: "",
+                    manufacturerId: "",
                     partNo: "",
                     imageId: "",
                 };
@@ -253,7 +253,7 @@
                 };
                 this.cpucooler=  {
                     socket: "",
-                    liquidCooled: Boolean,
+                    liquidCooled: false,
                     bearingType: "",
                     minNoiseLevel: 0,
                     maxNoiseLevel: 0,
@@ -393,7 +393,8 @@
                         return this.$snackbar.run(err.reason, ()=> {}, "OK", "error");
                     }
                     this.clearText();
-                    return this.$snackbar.run("Successfully add new product", ()=> {});
+                    this.$snackbar.run("Successfully add new product", ()=> {});
+                    return this.$router.replace("/product/details/"+ res);
                 }) 
                 
             },

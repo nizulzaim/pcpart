@@ -7,6 +7,7 @@ import {
 
 import {Manufacturer} from "./Manufacturer";
 import {Images} from "./Images";
+import {Seller} from "./Seller";
 
 export const Product = Class.create({
     name: "Product",
@@ -42,6 +43,19 @@ export const Product = Class.create({
                 return "";
             }
             return image._downloadRoute + "/images/" + image._id + "/original/" + image._id + "." + image.extension;
+        },
+        lowestPrice() {
+            let sellers = Seller.find({productId: this._id});
+            if (sellers && sellers.count() !== 0) {
+                let s = sellers.fetch();
+                s.sort((a, b) => {
+                    return a.price - b.price;
+                })
+
+                return s[0].price;
+            }
+
+            return null;
         }
     }
 });
@@ -241,7 +255,12 @@ if (Meteor.isServer) {
             find: function(p) {
                 return Images.find(p.imageId).cursor;
             }
-        }
+        },
+        {
+            find: function(p) {
+                return Seller.find({productId: p._id});
+            }
+        },
     ];
 
     Meteor.publishComposite('products', function(type ="", id="") {

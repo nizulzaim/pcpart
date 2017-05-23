@@ -3,7 +3,7 @@
         <page-container>
             <div class="row has-gutter">
                 <div class="col-xs-fluid-24">
-                    <cpu-compare v-if="type === 'cpu'" v-model="products"></cpu-compare>
+                    <component :is="type +'-compare'" v-model="products"></component>
                 </div>
             </div>
         </page-container>

@@ -3,7 +3,7 @@
         <cards-content>
             <div class="row middle-xs">
                 <div class="col-xs-fluid-8">
-                    <cards-image v-ripple img="/img/favicon.png" style="padding-bottom: 100%"></cards-image>
+                    <cards-image v-ripple :img="value.image()" style="padding-bottom: 100%"></cards-image>
                 </div>
                 <div class="col-xs-fluid-16">
                     <div class="font-title no-margin">{{value.title}}</div>
@@ -18,6 +18,7 @@
             </router-link>
             <div class="pull-right">
                 <span style="line-height: 48px; padding-right: 20px;cursor:pointer">{{value.love.count()}}</span>
+                <icon-button v-if="showDelete" @click="deleteGuide(value)" name="delete" v-ripple></icon-button>
                 <icon-button @click="loveGuide(value._id)" :name="heart" :class="{accent: true, disabled: !isLogin}" v-ripple></icon-button>
             </div>
         </cards-action>
@@ -30,6 +31,10 @@ import {User} from "/imports/model/User";
 export default {
     props: {
         value: Object,
+        showDelete: {
+            type: Boolean,
+            default: false,
+        }
     },
     computed: {
         heart() {
@@ -58,6 +63,16 @@ export default {
                     return console.log(err);
                 }
                 // this.$subscribe("guides");
+            })
+        },
+        deleteGuide(guide) {
+            this.$confirmation.run("Are you sure you want to delete this guide?", ()=> {
+                guide.callMethod("removeGuide", (err, reason) => {
+                    if(err) {
+                        return this.$snackbar.run(err.reason, ()=> {}, "OK", "error");
+                    }
+                    return this.$snackbar.run("Successfully remove", ()=> {});
+                })
             })
         }
     },

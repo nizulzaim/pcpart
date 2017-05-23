@@ -5,13 +5,15 @@ import {
     Meteor
 } from "meteor/meteor";
 
+import {Images} from '/imports/model/Images.js';
+
 export const UserProfile = Class.create({
     name: 'UserProfile',
     fields: {
         firstname: String,
         lastname: String,
         email: String,
-        imageId: String,
+        imageId: {type: String, optional: true},
         userType: {
             type: [Number],
             default: [2],
@@ -48,6 +50,12 @@ export const User = Class.create({
         },
         isCustomer() {
             return this.profile.userType.indexOf(2) > -1;
+        },
+        image() {
+            if(!this.profile.imageId) {
+                return null;
+            }
+            return Images.findOne(this.profile.imageId);
         }
     }
 });
@@ -59,11 +67,12 @@ if (Meteor.isServer) {
                 userObj.profile = profileObj;
                 Accounts.createUser(userObj);
             },
-            update(profileObj) {
+            update(username,profileObj) {
+                this.username = username;
                 this.set({
                     profile: profileObj,
                 }, { merge: true });
-                console.log(this.save());
+                return this.save();
             }
         }
     });
@@ -73,6 +82,17 @@ if (Meteor.isServer) {
             find: function() {
                 return User.find(this.userId);
             },
+            children:[
+                {
+                    find(user) {
+                        if (user.profile.imageId) {
+                            return Images.find(user.profile.imageId).cursor;
+                        }
+
+                        return undefined;
+                    }
+                }
+            ],
         };
     });
 

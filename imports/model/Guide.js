@@ -4,6 +4,9 @@ import {Product} from "./Product";
 import {GuideLove} from "./GuideLove";
 import {GuideComment} from "./GuideComment";
 import {User} from "./User";
+import {Manufacturer} from "./Manufacturer";
+import {Images} from "./Images";
+import {Seller} from "./Seller";
 
 
 export const Guide = Class.create({
@@ -50,6 +53,20 @@ export const Guide = Class.create({
         },
         authorUser() {
             return User.findOne(this.author);
+        },
+        image() {
+            let p = null;
+            if (this.products() && this.products().count() > 0) {
+                p = this.products();
+                let res = [];
+                p.forEach((item) => {
+                    if (item.getImageLink()) res.push(item.getImageLink());
+                });
+
+                return res[0];
+            }
+
+            return "";
         }
     }
 });
@@ -74,6 +91,9 @@ if (Meteor.isServer) {
                 }
 
                 return this.save();
+            },
+            removeGuide() {
+                return this.softRemove();
             }
         },
         events: {
@@ -96,7 +116,24 @@ if (Meteor.isServer) {
                     find(guide) {
                         
                         return Product.find({_id: {$in: guide.element}});
-                    }
+                    },
+                    children:[
+                        {
+                            find: function(p) {
+                                return Manufacturer.find(p.manufacturerId);
+                            }
+                        },
+                        {
+                            find: function(p) {
+                                return Images.find(p.imageId).cursor;
+                            }
+                        },
+                        {
+                            find: function(p) {
+                                return Seller.find({productId: p._id});
+                            }
+                        },
+                    ],
                 }, {
                     find(guide) {
                         return GuideLove.find({guideId: guide._id, userId: this.userId});
@@ -106,12 +143,100 @@ if (Meteor.isServer) {
                 {
                     find(guide) {
                         return User.find(guide.author);
-                    }
+                    },
+                    children:[
+                        {
+                            find(user) {
+                                if (user.profile.imageId) {
+                                    return Images.find(user.profile.imageId).cursor;
+                                }
+
+                                return undefined;
+                            }
+                        }
+                    ],
+                },
+                
+                
+            ]
+        };
+    });
+
+    Meteor.publishComposite('guideDetails', function(id) {
+        return {
+            find: function() {
+                if (id) {
+                    return Guide.find(id);
+                }
+                return Guide.find();
+            },
+            children: [
+                {
+                    find(guide) {
+                        
+                        return Product.find({_id: {$in: guide.element}});
+                    },
+                    children:[
+                        {
+                            find: function(p) {
+                                return Manufacturer.find(p.manufacturerId);
+                            }
+                        },
+                        {
+                            find: function(p) {
+                                return Images.find(p.imageId).cursor;
+                            }
+                        },
+                        {
+                            find: function(p) {
+                                return Seller.find({productId: p._id});
+                            }
+                        },
+                    ],
+                }, {
+                    find(guide) {
+                        return GuideLove.find({guideId: guide._id, userId: this.userId});
+                    },
+                    
+                },
+                {
+                    find(guide) {
+                        return User.find(guide.author);
+                    },
+                    children:[
+                        {
+                            find(user) {
+                                if (user.profile.imageId) {
+                                    return Images.find(user.profile.imageId).cursor;
+                                }
+
+                                return undefined;
+                            }
+                        }
+                    ],
                 },
                 {
                     find(guide) {
                         return GuideComment.find({guideId: guide._id});
                     },
+                    children: [
+                        {
+                            find(gc) {
+                                return User.find(gc.userId);
+                            },
+                            children:[
+                                {
+                                    find(user) {
+                                        if (user.profile.imageId) {
+                                            return Images.find(user.profile.imageId).cursor;
+                                        }
+
+                                        return undefined;
+                                    }
+                                }
+                            ],
+                        }
+                    ]
                 }
                 
             ]

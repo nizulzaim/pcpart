@@ -4,7 +4,7 @@
 			<page-container>
 				<div class="row has-gutter center-xs middle-xs" style="padding-top: 36px; padding-bottom: 36px;">
 					<div class="col-lg-fluid-8">
-						<div class="font-headline color-white">Build Guides</div>
+						<div class="font-display1 color-white">Build Guides</div>
 						<div class="font-subhead color-white">
 							Building your own PC and need ideas on where to get started? Explore our build guides, which cover systems for all use-cases and budgets, or create your own and share it with our community.
 						</div>
@@ -100,6 +100,32 @@
 				</div>
 			</page-container>
 		</div>
+		<div class="background-blue-grey-600" >
+			<page-container style="min-height: 200px; padding-top: 80px;">
+				<div class="button-center-container">
+					<a href="http://facebook.com" target="_blank" style="display: inline-block;height: 48px; width: 48px; overflow: hidden; margin-left: 4px; margin-right: 4px;">
+						<div class="background-blue color-white font-center" style=" line-height: 48px; border-radius: 50%; width: 48px;" v-ripple>
+							<icon name="facebook"></icon>
+						</div>
+					</a>
+					<a href="http://twitter.com" target="_blank" style="display: inline-block;height: 48px; width: 48px; overflow: hidden; margin-left: 4px; margin-right: 4px;">
+						<div class="background-light-blue color-white font-center" style=" line-height: 48px; border-radius: 50%; width: 48px;" v-ripple>
+							<icon name="twitter"></icon>
+						</div>
+					</a>
+					<a href="http://plus.google.com" target="_blank" style="display: inline-block;height: 48px; width: 48px; overflow: hidden; margin-left: 4px; margin-right: 4px;">
+						<div class="background-red-400 color-white font-center" style=" line-height: 48px; border-radius: 50%; width: 48px;" v-ripple>
+							<icon name="google"></icon>
+						</div>
+					</a>
+				</div>
+			</page-container>
+			<div class="background-blue-grey-800 color-white">
+				<div class="font-center" style="line-height: 30px;">
+					Copyright PCPart © 2017 
+				</div>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -113,7 +139,7 @@
                 guides: [],
             },
             guides() {
-                return Guide.find({}, {limit: 1, sort: {createdAt: -1}});
+                return Guide.find({}, {limit: 2, sort: {createdAt: -1}});
             },
 			guides9() {
                 return Guide.find({}, {limit: 9,skip: 1, sort: {createdAt: -1}});

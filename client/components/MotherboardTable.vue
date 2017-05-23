@@ -19,7 +19,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(v, index) in value" style="cursor: pointer">
+                    <tr v-for="(v, index) in value" :key="index" style="cursor: pointer">
                         <td>
                             <checkbox style="margin-top: -12px; margin-bottom: -12px;" v-model="checkbox[index]" :disabled="v.checkboxDisabled"></checkbox>
                         </td>
@@ -28,7 +28,7 @@
                         <td @click="goTo(v._id)">{{v.formFactor}}</td>
                         <td @click="goTo(v._id)">{{v.memorySlot}}</td>
                         <td @click="goTo(v._id)">{{v.maximumSupportedMemory}} GB</td>
-                        <td @click="goTo(v._id)"></td>
+                        <td @click="goTo(v._id)" ><span v-if="v.lowestPrice()">RM {{v.lowestPrice().toFixed(2)}}</span></td>
                     </tr>
                     <tr v-if="!$subReady">
                         <td colspan="100"  class="font-center">Loading</td>

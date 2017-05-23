@@ -10,3 +10,9 @@
         color: $color-grey-900;
     }
 }
+
+table tr td {
+    text-overflow: ellipsis;
+    max-width: 150px;
+    overflow: hidden;
+}

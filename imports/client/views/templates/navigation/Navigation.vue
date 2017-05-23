@@ -5,6 +5,13 @@
                 <icon name="home"></icon> PC Part Home
             </nav-list>
         </router-link>
+        <div>
+            <router-link to="/guides" exact>
+                <nav-list class="nav-item">
+                    <icon name="newspaper"></icon> Build Guides
+                </nav-list>
+            </router-link>
+        </div>
         <div v-if="loginUser">
             <div v-if="loginUser.isAdmin()">
                 <router-link to="/dashboard/product/add" exact>
@@ -13,8 +20,15 @@
                     </nav-list>
                 </router-link>
             </div>
+            <div v-if="loginUser">
+                <router-link to="/dashboard/my-guide" exact>
+                    <nav-list class="nav-item">
+                        <icon name="newspaper"></icon> My Guide
+                    </nav-list>
+                </router-link>
+            </div>
             <divider></divider>
-            <router-link to="/my-account" exact>
+            <router-link to="/dashboard/my-account" exact>
                 <nav-list class="nav-item">
                     <icon name="account"></icon> My Account
                 </nav-list>

@@ -1,6 +1,7 @@
 import {Class} from 'meteor/jagi:astronomy';
 import {Meteor} from "meteor/meteor";
 import {User} from "./User";
+import {Images} from "./Images";
 
 export const GuideComment = Class.create({
     name: "GuideComment",
@@ -56,7 +57,18 @@ if (Meteor.isServer) {
                 {
                     find(gc) {
                         return User.find(gc.userId);
-                    }
+                    },
+                    children:[
+                        {
+                            find(user) {
+                                if (user.profile.imageId) {
+                                    return Images.find(user.profile.imageId).cursor;
+                                }
+
+                                return undefined;
+                            }
+                        }
+                    ],
                 }
             ]
         };
